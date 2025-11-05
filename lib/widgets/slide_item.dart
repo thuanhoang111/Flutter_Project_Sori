@@ -42,7 +42,7 @@ class SlideItem extends StatelessWidget {
             children: [
               // Ảnh nền
               Positioned.fill(
-                child: Image.asset(
+                child: Image.network(
                   imageUrl,
                   fit: BoxFit.cover,
                 ),
