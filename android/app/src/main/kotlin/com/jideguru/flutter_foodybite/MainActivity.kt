@@ -1,4 +1,4 @@
-package com.thuanhoang.Flutter_Project_Sori
+package com.sorimachi.flutterProject
 
 import io.flutter.embedding.android.FlutterActivity
 

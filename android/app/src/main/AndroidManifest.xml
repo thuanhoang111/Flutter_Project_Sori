@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.thuanhoang.Flutter_Project_Sori">
+    package="com.sorimachi.flutterProject">
    <application
         android:label="Flutter_Project_Sori"
         android:name="${applicationName}"
