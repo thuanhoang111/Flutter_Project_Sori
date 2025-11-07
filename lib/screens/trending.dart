@@ -1,3 +1,4 @@
+import 'package:Flutter_Project_Sori/screens/product_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Flutter_Project_Sori/widgets/search_card.dart';
@@ -55,13 +56,26 @@ class Trending extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final data = products[index].data() as Map<String, dynamic>;
 
-                    return SlideItem(
-                      imageUrl: data["imageUrl"] ?? "",
-                      name: data["name"] ?? "Không có tên",
-                      description: data["description"] ?? "",
-                      rating: data["rating"] ?? "0.0",
-                      price: data["price"] ?? "0",
+return Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => productDetail(product: data),
+                      ),
                     );
+                  },
+                  child: SlideItem(
+                    imageUrl: data["imageUrl"] ?? "",
+                    name: data["name"] ?? "Không có tên",
+                    rating: data["rating"] ?? "0.0",
+                    description: data["description"] ?? "",
+                    price: data["price"] ?? "0",
+                  ),
+                ),
+              );
                   },
                 );
               },
