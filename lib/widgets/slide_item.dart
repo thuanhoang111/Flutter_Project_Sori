@@ -42,10 +42,9 @@ class SlideItem extends StatelessWidget {
             children: [
               // Ảnh nền
               Positioned.fill(
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                ),
+              child: isNetworkImage(imageUrl)
+                  ? Image.network(imageUrl, fit: BoxFit.cover)
+                  : Image.asset(imageUrl, fit: BoxFit.cover),
               ),
 
               // Gradient phủ mờ để text nổi

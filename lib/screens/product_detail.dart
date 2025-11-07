@@ -91,10 +91,9 @@ class _productDetailState extends State<productDetail> {
             Container(
               height: 250,
               width: double.infinity,
-              child: Image.asset(
-                product["imageUrl"],
-                fit: BoxFit.cover,
-              ),
+              child: isNetworkImage(product["imageUrl"])
+                  ? Image.network(product["imageUrl"], fit: BoxFit.cover)
+                  : Image.asset(product["imageUrl"], fit: BoxFit.cover),
             ),
 
             // Nội dung

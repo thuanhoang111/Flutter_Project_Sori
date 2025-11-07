@@ -1,3 +1,4 @@
+import 'package:Flutter_Project_Sori/util/const.dart';
 import 'package:flutter/material.dart';
 import 'package:Flutter_Project_Sori/services/notification_service.dart';
 import 'package:intl/intl.dart';
@@ -94,12 +95,19 @@ class _CartScreenState extends State<CartScreen> {
                             contentPadding: const EdgeInsets.all(12),
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
-                              child: Image.asset(
-                                item["imageUrl"],
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
-                              ),
+                              child: isNetworkImage(item["imageUrl"])
+                                  ? Image.network(
+                                      item["imageUrl"],
+                                      fit: BoxFit.cover,
+                                      width: 60,
+                                      height: 60,
+                                    )
+                                  : Image.asset(
+                                      item["imageUrl"],
+                                      fit: BoxFit.cover,
+                                      width: 60,
+                                      height: 60,
+                                    ),
                             ),
                             title: Text(
                               item["name"],
