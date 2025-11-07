@@ -7,20 +7,19 @@ class Label extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Trang quản trị")),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () async {
-            print("asdasd");
-            await uploadSampleProducts();
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text("Đã upload dữ liệu mẫu thành công!")),
-            );
-          },
-          child: const Text("Upload dữ liệu mẫu"),
-        ),
-      ),
+      appBar: AppBar(title: const Text("Label")),
+      // body: Center(
+      //   child: ElevatedButton(
+      //     onPressed: () async {
+      //       await uploadSampleProducts();
+      //       ScaffoldMessenger.of(context).showSnackBar(
+      //         const SnackBar(
+      //             content: Text("Đã upload dữ liệu mẫu thành công!")),
+      //       );
+      //     },
+      //     child: const Text("Upload dữ liệu mẫu"),
+      //   ),
+      // ),
     );
   }
 }

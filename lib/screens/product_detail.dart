@@ -181,3 +181,7 @@ class _productDetailState extends State<productDetail> {
     );
   }
 }
+bool isNetworkImage(String? path) {
+  final uri = Uri.tryParse(path ?? '');
+  return uri?.hasScheme == true && (uri!.scheme == 'http' || uri.scheme == 'https');
+}

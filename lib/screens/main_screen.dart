@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
         children: pages,
       ),
       bottomNavigationBar: BottomAppBar(
-        color: colorScheme.surface,
+        color: colorScheme.primary,
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -80,8 +80,10 @@ class _MainScreenState extends State<MainScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         elevation: 10.0,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        shape: const CircleBorder(), // 👈 ép tròn
         onPressed: () => _pageController.jumpToPage(2),
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
@@ -92,7 +94,7 @@ class _MainScreenState extends State<MainScreen> {
     return IconButton(
       icon: Icon(icons[index], size: 24.0),
       color: isSelected
-          ? colorScheme.secondary
+          ? colorScheme.background
           : textTheme.bodySmall?.color?.withOpacity(0.7),
       onPressed: () => _pageController.jumpToPage(index),
     );

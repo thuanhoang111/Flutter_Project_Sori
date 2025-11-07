@@ -29,18 +29,42 @@ class Home extends StatelessWidget {
             children: <Widget>[
               buildSearchBar(context),
               const SizedBox(height: 20.0),
-              buildProductRow('Trending products', context),
+              // 🔥 Lấy danh sách sản phẩm Firestore để truyền vào buildProductRow
+              StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('products')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (snapshot.hasError) {
+                    return Center(child: Text("Lỗi: ${snapshot.error}"));
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text("Chưa có sản phẩm nào!"));
+                  }
+
+                  final products = snapshot.data!.docs;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // ✅ truyền products vào buildProductRow
+                      buildProductRow('Trending products', products, context),
+                      const SizedBox(height: 10.0),
+                      buildProductList(context),
+                    ],
+                  );
+                },
+              ),
               const SizedBox(height: 10.0),
-              buildProductList(context),
-              const SizedBox(height: 10.0),
-              buildCategoryRow('Category', context),
+              buildCategoryRow('Category',categories, context),
               const SizedBox(height: 10.0),
               buildCategoryList(context),
               const SizedBox(height: 20.0),
-              buildCategoryRow('Friends', context),
-              const SizedBox(height: 10.0),
-              buildFriendsList(),
-              const SizedBox(height: 30.0),
             ],
           ),
         ),
@@ -49,7 +73,7 @@ class Home extends StatelessWidget {
   }
 
   /// ---------------- product ----------------
-  Widget buildProductRow(String title, BuildContext context) {
+  Widget buildProductRow(String title,List products, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -68,7 +92,7 @@ class Home extends StatelessWidget {
             );
           },
           child: Text(
-            "See all (9)",
+            "See all (${products.length})",
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -79,7 +103,7 @@ class Home extends StatelessWidget {
   }
 
   /// ---------------- CATEGORY ----------------
-  Widget buildCategoryRow(String title, BuildContext context) {
+  Widget buildCategoryRow(String title, categories, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
@@ -98,7 +122,7 @@ class Home extends StatelessWidget {
             );
           },
           child: Text(
-            "See all (9)",
+            "See all (${categories.length})",
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
             ),
